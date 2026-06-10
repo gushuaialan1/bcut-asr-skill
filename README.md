@@ -2,7 +2,7 @@
 
 # bcut-asr-skill
 
-**Modern Python SDK for Bilibili BCut ASR & TTS**
+**Modern Python SDK + Universal Agent Skill for Bilibili BCut ASR & TTS**
 
 [![CI](https://github.com/gushuaialan1/bcut-asr-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/gushuaialan1/bcut-asr-skill/actions)
 [![PyPI](https://img.shields.io/pypi/v/bcut-asr-skill)](https://pypi.org/project/bcut-asr-skill/)
@@ -19,6 +19,11 @@
 ## English
 
 > A clean, modern Python SDK for Bilibili's "Bijian" (BCut) cloud speech services — ASR (Automatic Speech Recognition) and TTS (Text-to-Speech). Built for agents, developers, and automation pipelines.
+>
+> **One-line install as an Agent Skill:**
+> ```bash
+> npx skills add https://github.com/gushuaialan1/bcut-asr-skill
+> ```
 
 ### Features
 
@@ -100,8 +105,11 @@ bcut-tts "Hello world" -v dingzhen -o hello.wav
 ### Installation
 
 ```bash
-# From PyPI (when published)
+# From PyPI
 pip install bcut-asr-skill
+
+# As an Agent Skill (supports Claude Code / Cursor / Hermes / Windsurf / Codex / etc.)
+npx skills add https://github.com/gushuaialan1/bcut-asr-skill
 
 # From source
 git clone https://github.com/gushuaialan1/bcut-asr-skill.git
@@ -140,6 +148,11 @@ mypy src/bcut_asr_skill
 ## 中文
 
 > 必剪（Bilibili BCut）云端语音服务的现代化 Python SDK —— 支持 ASR 语音识别和 TTS 语音合成。为 AI Agent、开发者和自动化流程设计。
+>
+> **一行代码安装为 Agent Skill：**
+> ```bash
+> npx skills add https://github.com/gushuaialan1/bcut-asr-skill
+> ```
 
 ### 功能特性
 
@@ -221,8 +234,11 @@ bcut-tts "你好世界" -v dingzhen -o hello.wav
 ### 安装
 
 ```bash
-# 从 PyPI 安装（发布後）
+# 从 PyPI 安装
 pip install bcut-asr-skill
+
+# 作为 Agent Skill 安装（支持 Claude Code / Cursor / Hermes / Windsurf 等）
+npx skills add https://github.com/gushuaialan1/bcut-asr-skill
 
 # 从源码安装
 git clone https://github.com/gushuaialan1/bcut-asr-skill.git
@@ -259,7 +275,8 @@ mypy src/bcut_asr_skill
 
 ## Roadmap
 
-- [ ] Publish to PyPI
+- [x] Publish to PyPI
+- [x] One-line skill install via `npx skills add`
 - [ ] Add ASS subtitle format support
 - [ ] Batch transcription API
 - [ ] Voice cloning integration
