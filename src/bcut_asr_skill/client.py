@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import time
@@ -68,7 +69,7 @@ def _check_resp(data: dict) -> dict:
     """检查 B站 API 响应，业务错误时抛 APIError"""
     code = data.get("code", 0)
     if code != 0:
-        raise APIError(code, data.get("message", "未知错误"))
+        raise APIError(code, data.get("message", "未知错误"), raw_response=data)
     return data.get("data", {})
 
 
@@ -214,15 +215,23 @@ class BCutASRClient:
 class BCutTTSClient:
     """必剪语音合成同步客户端"""
 
-    def __init__(self, session: Optional[requests.Session] = None) -> None:
+    def __init__(
+        self,
+        session: Optional[requests.Session] = None,
+        *,
+        cache_ttl: float = 300.0,
+    ) -> None:
         self.session = session or requests.Session()
         self.session.headers.update(DEFAULT_HEADERS)
         self._voices: Optional[list[VoiceCategory]] = None
+        self._voices_time: float = 0.0
+        self._cache_ttl = cache_ttl
 
     def list_voices(self, force_refresh: bool = False) -> list[VoiceCategory]:
         """获取可用音色列表"""
         if self._voices is not None and not force_refresh:
-            return self._voices
+            if time.time() - self._voices_time < self._cache_ttl:
+                return self._voices
 
         resp = self.session.get(API_TTS_VOICES)
         resp.raise_for_status()
@@ -255,14 +264,35 @@ class BCutTTSClient:
                 )
             )
         self._voices = categories
+        self._voices_time = time.time()
         logger.info(f"获取音色列表成功，共 {len(categories)} 个分类")
         return categories
 
     def find_voice(self, name: str) -> Optional[VoiceMaterial]:
-        """根据 voice 值或名称查找音色"""
+        """根据 voice 值优先、其次 name 查找音色"""
         for cat in self.list_voices():
             for mat in cat.materials:
-                if mat.voice == name or mat.name == name:
+                if mat.voice == name:
+                    return mat
+        for cat in self.list_voices():
+            for mat in cat.materials:
+                if mat.name == name:
+                    return mat
+        return None
+
+    def find_voice_by_name(self, name: str) -> Optional[VoiceMaterial]:
+        """根据 name 字段精确查找音色"""
+        for cat in self.list_voices():
+            for mat in cat.materials:
+                if mat.name == name:
+                    return mat
+        return None
+
+    def find_voice_by_id(self, voice_id: str) -> Optional[VoiceMaterial]:
+        """根据 voice 字段精确查找音色"""
+        for cat in self.list_voices():
+            for mat in cat.materials:
+                if mat.voice == voice_id:
                     return mat
         return None
 
@@ -341,6 +371,7 @@ class BCutTTSClient:
         # 下载音频
         audio_resp = self.session.get(tts_data.audio_url)
         audio_resp.raise_for_status()
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         Path(output_path).write_bytes(audio_resp.content)
         logger.info(f"音频已保存: {output_path}")
         return output_path
@@ -473,10 +504,17 @@ class AsyncBCutASRClient:
 class AsyncBCutTTSClient:
     """必剪语音合成异步客户端 (httpx)"""
 
-    def __init__(self, client: Optional[httpx.AsyncClient] = None) -> None:
+    def __init__(
+        self,
+        client: Optional[httpx.AsyncClient] = None,
+        *,
+        cache_ttl: float = 300.0,
+    ) -> None:
         self.client = client or httpx.AsyncClient(headers=DEFAULT_HEADERS)
         self._own_client = client is None
         self._voices: Optional[list[VoiceCategory]] = None
+        self._voices_time: float = 0.0
+        self._cache_ttl = cache_ttl
 
     async def close(self) -> None:
         if self._own_client:
@@ -491,7 +529,8 @@ class AsyncBCutTTSClient:
     async def list_voices(self, force_refresh: bool = False) -> list[VoiceCategory]:
         """异步获取音色列表"""
         if self._voices is not None and not force_refresh:
-            return self._voices
+            if time.time() - self._voices_time < self._cache_ttl:
+                return self._voices
 
         resp = await self.client.get(API_TTS_VOICES)
         resp.raise_for_status()
@@ -524,12 +563,34 @@ class AsyncBCutTTSClient:
                 )
             )
         self._voices = categories
+        self._voices_time = time.time()
         return categories
 
     async def find_voice(self, name: str) -> Optional[VoiceMaterial]:
+        """根据 voice 值优先、其次 name 查找音色"""
         for cat in await self.list_voices():
             for mat in cat.materials:
-                if mat.voice == name or mat.name == name:
+                if mat.voice == name:
+                    return mat
+        for cat in await self.list_voices():
+            for mat in cat.materials:
+                if mat.name == name:
+                    return mat
+        return None
+
+    async def find_voice_by_name(self, name: str) -> Optional[VoiceMaterial]:
+        """根据 name 字段精确查找音色"""
+        for cat in await self.list_voices():
+            for mat in cat.materials:
+                if mat.name == name:
+                    return mat
+        return None
+
+    async def find_voice_by_id(self, voice_id: str) -> Optional[VoiceMaterial]:
+        """根据 voice 字段精确查找音色"""
+        for cat in await self.list_voices():
+            for mat in cat.materials:
+                if mat.voice == voice_id:
                     return mat
         return None
 
@@ -597,13 +658,10 @@ class AsyncBCutTTSClient:
             await asyncio.sleep(poll_interval)
 
         # 异步流式下载
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         async with self.client.stream("GET", tts_data.audio_url) as resp:
             resp.raise_for_status()
             with open(output_path, "wb") as f:
                 async for chunk in resp.aiter_bytes():
                     f.write(chunk)
         return output_path
-
-
-# 延迟导入 asyncio，避免顶层依赖
-import asyncio  # noqa: E402

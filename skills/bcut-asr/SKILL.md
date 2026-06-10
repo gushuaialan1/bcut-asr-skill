@@ -11,7 +11,8 @@ Bilibili 必剪云端语音服务的 AI Agent Skill，提供 ASR 语音识别和
 ## 安装
 
 ```bash
-pip install bcut-asr-skill
+# 注意：PyPI 包尚未发布，请使用源码安装
+pip install git+https://github.com/gushuaialan1/bcut-asr-skill.git
 ```
 
 ## 可用工具
@@ -287,6 +288,77 @@ asyncio.run(main())
 
 ---
 
+## 异步 API 完整示例
+
+### 基本 async with
+
+```python
+import asyncio
+from bcut_asr_skill import AsyncBCutASRClient, AsyncBCutTTSClient
+
+async def demo():
+    # ASR
+    async with AsyncBCutASRClient() as client:
+        result = await client.transcribe("meeting.mp3")
+        print(result.to_srt())
+
+    # TTS
+    async with AsyncBCutTTSClient() as client:
+        await client.synthesize("欢迎使用", "welcome.wav", voice="dingzhen")
+
+asyncio.run(demo())
+```
+
+### 并发批量 ASR
+
+```python
+import asyncio
+from bcut_asr_skill import AsyncBCutASRClient
+
+async def transcribe_many(file_paths: list[str]):
+    async with AsyncBCutASRClient() as client:
+        tasks = [client.transcribe(path) for path in file_paths]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        return results
+
+files = ["a.mp3", "b.mp3", "c.mp3"]
+results = asyncio.run(transcribe_many(files))
+for path, result in zip(files, results):
+    if isinstance(result, Exception):
+        print(f"{path} failed: {result}")
+    else:
+        print(f"{path}: {len(result.utterances)} utterances")
+```
+
+### 批量 TTS 合成
+
+```python
+import asyncio
+from bcut_asr_skill import AsyncBCutTTSClient
+
+async def synthesize_many(items: list[tuple[str, str, str]]):
+    """items: [(text, output_path, voice), ...]"""
+    async with AsyncBCutTTSClient() as client:
+        tasks = [
+            client.synthesize(text, out, voice=voice)
+            for text, out, voice in items
+        ]
+        return await asyncio.gather(*tasks, return_exceptions=True)
+
+items = [
+    ("第一段文本", "out1.wav", "dingzhen"),
+    ("第二段文本", "out2.wav", "zhiyin"),
+]
+results = asyncio.run(synthesize_many(items))
+```
+
+## 注意事项
+
+- Bilibili 云端服务有速率限制，建议合理控制并发，避免短时间内大量请求
+- 单次音频建议不超过 10 分钟，过长文件可能导致处理超时或失败
+- TTS 文本建议不超过 5000 字，超长文本请拆分为多段调用
+- 频繁调用可能触发限流，如遇失败请适当降低请求频率
+
 ## 依赖
 
 - Python >= 3.10
@@ -294,3 +366,16 @@ asyncio.run(main())
 - `httpx>=0.27`
 - `requests>=2.31`
 - `ffmpeg`（用于视频文件音频提取，可选）
+
+---
+
+## 附录：常见错误速查表
+
+| 错误 | 可能原因 | 解决 |
+|------|---------|------|
+| APIError: 403 | 请求被拦截 | 检查网络环境，确认未被防火墙或代理阻断 |
+| TaskTimeoutError | 文件太长或网络慢 | 增大 timeout 参数，或缩短音频/文本长度 |
+| FFmpegError | 未安装 ffmpeg | 安装 ffmpeg 并确保其在 PATH 中 |
+| APIError: -1 | 音频静音或无人声 | 检查音频内容是否包含有效语音 |
+| FileNotFoundError | 输出目录不存在 | 确保输出目录已创建 |
+| APIError: 429 | 触发速率限制 | 降低并发数，增加请求间隔 |

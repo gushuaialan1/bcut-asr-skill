@@ -7,6 +7,7 @@ Usage:
     python -m bcut_asr_skill.mcp
 """
 
+import argparse
 import json
 import sys
 from typing import Any
@@ -31,6 +32,18 @@ def _recv() -> dict[str, Any]:
     length = int(headers.get("Content-Length", 0))
     data = sys.stdin.read(length)
     return json.loads(data)
+
+
+def _health_check() -> int:
+    try:
+        client = BCutTTSClient()
+        voices = client.list_voices()
+        total = sum(len(cat.materials) for cat in voices)
+        print(f"OK: API reachable, {total} voices found")
+        return 0
+    except Exception as exc:
+        print(f"ERROR: {exc}")
+        return 1
 
 
 TOOLS = [
@@ -103,6 +116,13 @@ def _handle_tool(name: str, args: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(prog="bcut-asr-skill-mcp")
+    parser.add_argument("--health", action="store_true", help="Check API connectivity and exit")
+    args = parser.parse_args()
+
+    if args.health:
+        sys.exit(_health_check())
+
     while True:
         try:
             msg = _recv()

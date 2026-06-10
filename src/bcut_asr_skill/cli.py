@@ -14,6 +14,7 @@ from .client import BCutASRClient, BCutTTSClient
 from .exceptions import APIError, BCutError
 from .formats import OutputFormat
 from .utils import guess_output_format
+from . import __version__
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +35,7 @@ def _build_asr_parser() -> argparse.ArgumentParser:
         description="必剪语音识别 - 将音频/视频转换为字幕",
         epilog=f"支持输入格式: {', '.join(INFILE_FMT)} (视频会自动 ffmpeg 提取伴音)",
     )
+    parser.add_argument("--version", action="version", version=f"bcut-asr {__version__}")
     parser.add_argument("input", help="输入媒体文件路径")
     parser.add_argument("-o", "--output", default=None, help="输出字幕文件路径")
     parser.add_argument(
@@ -57,6 +59,7 @@ def _build_tts_parser() -> argparse.ArgumentParser:
         description="必剪语音合成 - 文本转语音",
         epilog="使用 -l 列出所有可用音色",
     )
+    parser.add_argument("--version", action="version", version=f"bcut-tts {__version__}")
     parser.add_argument("text", nargs="?", help="要合成的文本内容")
     parser.add_argument("-o", "--output", default="output.wav", help="输出音频路径")
     parser.add_argument("-v", "--voice", default="dingzhen", help="音色名称")

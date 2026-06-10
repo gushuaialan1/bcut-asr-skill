@@ -19,11 +19,13 @@ class APIError(BCutError):
     Attributes:
         code: API 返回的错误码
         msg: 错误描述信息
+        raw_response: API 原始响应字典 (可能为 None)
     """
 
-    def __init__(self, code: int, msg: str) -> None:
+    def __init__(self, code: int, msg: str, raw_response: dict | None = None) -> None:
         self.code = code
         self.msg = msg
+        self.raw_response = raw_response
         super().__init__(f"{code}:{msg}")
 
 

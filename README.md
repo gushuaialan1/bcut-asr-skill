@@ -38,7 +38,8 @@
 ### Quick Start
 
 ```bash
-pip install bcut-asr-skill
+# 注意：PyPI 包尚未发布，请使用源码安装
+pip install git+https://github.com/gushuaialan1/bcut-asr-skill.git
 ```
 
 #### ASR — Transcribe Audio
@@ -105,8 +106,8 @@ bcut-tts "Hello world" -v dingzhen -o hello.wav
 ### Installation
 
 ```bash
-# From PyPI
-pip install bcut-asr-skill
+# 注意：PyPI 包尚未发布，请使用源码安装
+pip install git+https://github.com/gushuaialan1/bcut-asr-skill.git
 
 # As an Agent Skill (supports Claude Code / Cursor / Hermes / Windsurf / Codex / etc.)
 npx skills add https://github.com/gushuaialan1/bcut-asr-skill
@@ -167,7 +168,8 @@ mypy src/bcut_asr_skill
 ### 快速开始
 
 ```bash
-pip install bcut-asr-skill
+# 注意：PyPI 包尚未发布，请使用源码安装
+pip install git+https://github.com/gushuaialan1/bcut-asr-skill.git
 ```
 
 #### ASR — 语音识别
@@ -234,8 +236,8 @@ bcut-tts "你好世界" -v dingzhen -o hello.wav
 ### 安装
 
 ```bash
-# 从 PyPI 安装
-pip install bcut-asr-skill
+# 注意：PyPI 包尚未发布，请使用源码安装
+pip install git+https://github.com/gushuaialan1/bcut-asr-skill.git
 
 # 作为 Agent Skill 安装（支持 Claude Code / Cursor / Hermes / Windsurf 等）
 npx skills add https://github.com/gushuaialan1/bcut-asr-skill
@@ -275,7 +277,7 @@ mypy src/bcut_asr_skill
 
 ## Roadmap
 
-- [x] Publish to PyPI
+- [ ] Publish to PyPI
 - [x] One-line skill install via `npx skills add`
 - [ ] Add ASS subtitle format support
 - [ ] Batch transcription API

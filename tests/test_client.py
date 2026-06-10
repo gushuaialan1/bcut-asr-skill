@@ -237,6 +237,18 @@ class TestBCutASRClient:
         with pytest.raises(APIError, match="参数错误"):
             client.upload("a.mp3", b"x", "mp3")
 
+    def test_api_error_raw_response(self):
+        """测试 APIError 包含 raw_response"""
+        raw = {"code": -1, "message": "参数错误", "data": None}
+        err = APIError(-1, "参数错误", raw_response=raw)
+        assert err.code == -1
+        assert err.msg == "参数错误"
+        assert err.raw_response == raw
+
+        # 不传 raw_response 时默认为 None
+        err2 = APIError(500, "服务器错误")
+        assert err2.raw_response is None
+
 
 # ---------------------------------------------------------------------------
 # 同步 TTS 客户端测试
@@ -272,6 +284,48 @@ class TestBCutTTSClient:
         assert cats[0].materials[0].voice == "dingzhen"
         assert cats[0].materials[0].ssml_effect == "echo"
 
+    def test_list_voices_cache_ttl(self):
+        """测试 list_voices 缓存命中和过期"""
+        session = MagicMock()
+        session.headers = {}
+        session.get.return_value = _json_resp(
+            {
+                "categories": [
+                    {
+                        "id": 1,
+                        "title": "热门",
+                        "materials": [{"id": 10, "name": "丁真", "voice": "dingzhen"}],
+                    }
+                ]
+            }
+        )
+
+        with patch("bcut_asr_skill.client.time.time") as mock_time:
+            client = BCutTTSClient(session=session, cache_ttl=60.0)
+            # 首次调用
+            mock_time.return_value = 0.0
+            cats1 = client.list_voices()
+            assert cats1[0].materials[0].name == "丁真"
+            assert session.get.call_count == 1
+
+            # 缓存命中（未过期）
+            mock_time.return_value = 30.0
+            cats2 = client.list_voices()
+            assert cats2[0].materials[0].name == "丁真"
+            assert session.get.call_count == 1  # 未发请求
+
+            # 缓存过期
+            mock_time.return_value = 70.0
+            cats3 = client.list_voices()
+            assert cats3[0].materials[0].name == "丁真"
+            assert session.get.call_count == 2  # 重新请求
+
+            # force_refresh 强制刷新
+            mock_time.return_value = 80.0
+            cats4 = client.list_voices(force_refresh=True)
+            assert cats4[0].materials[0].name == "丁真"
+            assert session.get.call_count == 3  # 强制刷新
+
     def test_find_voice(self):
         session = MagicMock()
         session.headers = {}
@@ -292,6 +346,58 @@ class TestBCutTTSClient:
         assert voice is not None
         assert voice.name == "丁真"
         assert client.find_voice("notexist") is None
+
+    def test_find_voice_by_name(self):
+        """测试只按 name 匹配"""
+        session = MagicMock()
+        session.headers = {}
+        session.get.return_value = _json_resp(
+            {
+                "categories": [
+                    {
+                        "id": 1,
+                        "title": "热门",
+                        "materials": [
+                            {"id": 10, "name": "丁真", "voice": "dingzhen"},
+                            {"id": 11, "name": "丁真2", "voice": "dingzhen2"},
+                        ],
+                    }
+                ]
+            }
+        )
+
+        client = BCutTTSClient(session=session)
+        voice = client.find_voice_by_name("丁真")
+        assert voice is not None
+        assert voice.name == "丁真"
+        assert voice.voice == "dingzhen"
+        assert client.find_voice_by_name("dingzhen") is None  # 不匹配 voice 字段
+
+    def test_find_voice_by_id(self):
+        """测试只按 voice ID 匹配"""
+        session = MagicMock()
+        session.headers = {}
+        session.get.return_value = _json_resp(
+            {
+                "categories": [
+                    {
+                        "id": 1,
+                        "title": "热门",
+                        "materials": [
+                            {"id": 10, "name": "丁真", "voice": "dingzhen"},
+                            {"id": 11, "name": "丁真2", "voice": "dingzhen2"},
+                        ],
+                    }
+                ]
+            }
+        )
+
+        client = BCutTTSClient(session=session)
+        voice = client.find_voice_by_id("dingzhen")
+        assert voice is not None
+        assert voice.voice == "dingzhen"
+        assert voice.name == "丁真"
+        assert client.find_voice_by_id("丁真") is None  # 不匹配 name 字段
 
     def test_create_task(self):
         session = MagicMock()
@@ -350,9 +456,40 @@ class TestBCutTTSClient:
 
         client = BCutTTSClient(session=session)
         with patch("pathlib.Path.write_bytes") as mock_write:
-            path = client.synthesize("你好", "/tmp/out.wav", timeout=5.0)
-            assert path == "/tmp/out.wav"
-            mock_write.assert_called_once_with(b"audio_data")
+            with patch("pathlib.Path.mkdir") as mock_mkdir:
+                path = client.synthesize("你好", "/tmp/out.wav", timeout=5.0)
+                assert path == "/tmp/out.wav"
+                mock_write.assert_called_once_with(b"audio_data")
+                mock_mkdir.assert_called_once_with(parents=True, exist_ok=True)
+
+    def test_synthesize_creates_parent_dir(self):
+        """测试 TTS synthesize 自动创建父目录"""
+        tts_data = TTSResultData(audio_url="http://a1")
+        session = MagicMock()
+        session.headers = {}
+        session.post.return_value = _json_resp(
+            {"task_id": "t1", "poll_time": 1, "result": "", "mark": 0}
+        )
+        session.get.side_effect = [
+            _json_resp(
+                {
+                    "task_id": "t1",
+                    "poll_time": 1,
+                    "result": tts_data.model_dump_json(),
+                    "mark": 0,
+                    "state": 0,
+                    "remark": "",
+                }
+            ),
+            MagicMock(status_code=200, content=b"audio_data", raise_for_status=lambda: None),
+        ]
+
+        client = BCutTTSClient(session=session)
+        with patch("pathlib.Path.write_bytes") as mock_write:
+            with patch("pathlib.Path.mkdir") as mock_mkdir:
+                path = client.synthesize("你好", "/tmp/nested/dir/out.wav")
+                assert path == "/tmp/nested/dir/out.wav"
+                mock_mkdir.assert_called_once_with(parents=True, exist_ok=True)
 
 
 # ---------------------------------------------------------------------------
