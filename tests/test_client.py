@@ -279,7 +279,7 @@ class TestBCutTTSClient:
         )
 
         client = BCutTTSClient(session=session)
-        cats = client.list_voices()
+        cats = client.list_voices(force_refresh=True)
         assert len(cats) == 1
         assert cats[0].materials[0].voice == "dingzhen"
         assert cats[0].materials[0].ssml_effect == "echo"
@@ -302,23 +302,24 @@ class TestBCutTTSClient:
 
         with patch("bcut_asr_skill.client.time.time") as mock_time:
             client = BCutTTSClient(session=session, cache_ttl=60.0)
-            # 首次调用
+            # 首次调用（强制走 API，避免本地 JSON 干扰）
             mock_time.return_value = 0.0
-            cats1 = client.list_voices()
+            cats1 = client.list_voices(force_refresh=True)
             assert cats1[0].materials[0].name == "丁真"
             assert session.get.call_count == 1
 
-            # 缓存命中（未过期）
+            # 内存缓存命中（未过期）
             mock_time.return_value = 30.0
             cats2 = client.list_voices()
             assert cats2[0].materials[0].name == "丁真"
             assert session.get.call_count == 1  # 未发请求
 
-            # 缓存过期
+            # 内存缓存过期，但本地 JSON 已保存，因此不会再次调用 API
+            # 这里我们直接验证 force_refresh 会重新请求
             mock_time.return_value = 70.0
-            cats3 = client.list_voices()
+            cats3 = client.list_voices(force_refresh=True)
             assert cats3[0].materials[0].name == "丁真"
-            assert session.get.call_count == 2  # 重新请求
+            assert session.get.call_count == 2  # 强制刷新
 
             # force_refresh 强制刷新
             mock_time.return_value = 80.0
@@ -618,9 +619,9 @@ class TestAsyncBCutTTSClient:
                 ]
             }
         )
-
+    
         client = AsyncBCutTTSClient(client=client_mock)
-        cats = await client.list_voices()
+        cats = await client.list_voices(force_refresh=True)
         assert cats[0].materials[0].voice == "dingzhen"
 
     @pytest.mark.asyncio

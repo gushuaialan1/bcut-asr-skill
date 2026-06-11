@@ -228,11 +228,24 @@ class BCutTTSClient:
         self._cache_ttl = cache_ttl
 
     def list_voices(self, force_refresh: bool = False) -> list[VoiceCategory]:
-        """获取可用音色列表"""
+        """获取可用音色列表（优先内存缓存 → 本地缓存 → API）"""
+        # 1. 检查内存缓存
         if self._voices is not None and not force_refresh:
             if time.time() - self._voices_time < self._cache_ttl:
                 return self._voices
 
+        # 2. 尝试从本地 JSON 加载（如果未强制刷新）
+        if not force_refresh:
+            from .voices import load_voice_data
+
+            local = load_voice_data()
+            if local is not None:
+                self._voices = local
+                self._voices_time = time.time()
+                logger.info(f"从本地加载音色数据，共 {len(local)} 个分类")
+                return local
+
+        # 3. 调用 API 获取
         resp = self.session.get(API_TTS_VOICES)
         resp.raise_for_status()
         data = _check_resp(resp.json())
@@ -263,9 +276,15 @@ class BCutTTSClient:
                     rank=cat_data.get("rank", 0),
                 )
             )
+
+        # 4. 保存到用户缓存
+        from .voices import save_voice_data
+
+        save_voice_data(categories)
+
         self._voices = categories
         self._voices_time = time.time()
-        logger.info(f"获取音色列表成功，共 {len(categories)} 个分类")
+        logger.info(f"从 API 获取音色列表成功，共 {len(categories)} 个分类")
         return categories
 
     def find_voice(self, name: str) -> Optional[VoiceMaterial]:
@@ -527,11 +546,24 @@ class AsyncBCutTTSClient:
         await self.close()
 
     async def list_voices(self, force_refresh: bool = False) -> list[VoiceCategory]:
-        """异步获取音色列表"""
+        """异步获取音色列表（优先本地缓存 → API）"""
+        # 1. 检查内存缓存
         if self._voices is not None and not force_refresh:
             if time.time() - self._voices_time < self._cache_ttl:
                 return self._voices
 
+        # 2. 尝试从本地 JSON 加载（如果未强制刷新）
+        if not force_refresh:
+            from .voices import load_voice_data
+
+            local = load_voice_data()
+            if local is not None:
+                self._voices = local
+                self._voices_time = time.time()
+                logger.info(f"从本地加载音色数据，共 {len(local)} 个分类")
+                return local
+
+        # 3. 调用 API 获取
         resp = await self.client.get(API_TTS_VOICES)
         resp.raise_for_status()
         data = _check_resp(resp.json())
@@ -562,6 +594,12 @@ class AsyncBCutTTSClient:
                     rank=cat_data.get("rank", 0),
                 )
             )
+
+        # 4. 保存到用户缓存
+        from .voices import save_voice_data
+
+        save_voice_data(categories)
+
         self._voices = categories
         self._voices_time = time.time()
         return categories

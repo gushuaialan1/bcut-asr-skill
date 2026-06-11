@@ -43,6 +43,7 @@ bcut-tts = "bcut_asr_skill.cli:main_tts"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/bcut_asr_skill"]
+include = ["src/bcut_asr_skill/data/**"]
 
 [tool.ruff]
 line-length = 100

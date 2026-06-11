@@ -75,6 +75,7 @@ def _build_tts_parser() -> argparse.ArgumentParser:
         help="超时时间 (秒，默认 60)",
     )
     parser.add_argument("-l", "--list-voices", action="store_true", help="列出所有音色")
+    parser.add_argument("--update-voices", action="store_true", help="强制从 API 更新音色列表并保存到本地缓存")
     return parser
 
 
@@ -122,6 +123,26 @@ def main_tts(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     client = BCutTTSClient()
+
+    if args.update_voices:
+        try:
+            categories = client.list_voices(force_refresh=True)
+            logger.info(f"音色列表已更新，共 {len(categories)} 个分类")
+            for cat in categories:
+                print(f"\n【{cat.title}】")
+                for mat in cat.materials:
+                    tag = "B站" if mat.voice_engine == "bili-fewshot" else "MiniMax"
+                    extras = []
+                    if mat.tts_tags:
+                        extras.append(mat.tts_tags)
+                    if mat.ssml_effect:
+                        extras.append(f"效果:{mat.ssml_effect}")
+                    extra_str = f" [{', '.join(extras)}]" if extras else ""
+                    print(f"  {mat.name}: {mat.voice} ({tag}){extra_str}")
+            return 0
+        except APIError as exc:
+            logger.error(str(exc))
+            return 1
 
     if args.list_voices:
         try:

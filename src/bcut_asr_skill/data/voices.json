@@ -1,0 +1,874 @@
+[
+  {
+    "id": 1740257,
+    "title": "特色",
+    "cover": "",
+    "rank": 1,
+    "materials": [
+      {
+        "id": 5843028,
+        "name": "梦想家",
+        "voice": "xianyumengxiangjia-guichu",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5843025,
+        "name": "大将锐评",
+        "voice": "fanzhiyi-guichu",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5843027,
+        "name": "激昂张飞",
+        "voice": "zhangfei-guichu",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5211912,
+        "name": "麦克阿瑟",
+        "voice": "maikease",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5739655,
+        "name": "理塘小子",
+        "voice": "dingzhen",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 995697,
+        "name": "说唱小哥",
+        "voice": "heyboy",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 910584,
+        "name": "机甲战警",
+        "voice": "jixiezhanjing",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": "echo"
+      },
+      {
+        "id": 5830754,
+        "name": "锤大力",
+        "voice": "wangdachui",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5830757,
+        "name": "体虚生",
+        "voice": "tixunan",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5739657,
+        "name": "游戏解说",
+        "voice": "sunxiaochuan",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866627,
+        "name": "北京小伙",
+        "voice": "hutong_daye",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866626,
+        "name": "土味老爹",
+        "voice": "audiobook_male_2",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5830753,
+        "name": "电子奸臣",
+        "voice": "dianzijianchen",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5739654,
+        "name": "曼波",
+        "voice": "shigeju",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      }
+    ]
+  },
+  {
+    "id": 1740258,
+    "title": "角色",
+    "cover": "",
+    "rank": 2,
+    "materials": [
+      {
+        "id": 5211913,
+        "name": "猴哥",
+        "voice": "houge",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5211914,
+        "name": "树人",
+        "voice": "luxun",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 990008,
+        "name": "萌奇",
+        "voice": "xiaomeng",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5843026,
+        "name": "愤怒阿瞒",
+        "voice": "caocaogaifan-guichu",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5843030,
+        "name": "智谋丞相",
+        "voice": "zhugeliang-guichu",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5741971,
+        "name": "熊熊",
+        "voice": "xionger",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5739656,
+        "name": "魔法老爹",
+        "voice": "laodie",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 938721,
+        "name": "海宝",
+        "voice": "haibao",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5843029,
+        "name": "豪迈二爷",
+        "voice": "guanyu-guichu",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5741517,
+        "name": "春日部",
+        "voice": "chunribu",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5741516,
+        "name": "紫薇",
+        "voice": "ziwei",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 968675,
+        "name": "海星",
+        "voice": "haixing",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5332393,
+        "name": "名侦探",
+        "voice": "kenanvc",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      }
+    ]
+  },
+  {
+    "id": 1740259,
+    "title": "解说",
+    "cover": "",
+    "rank": 3,
+    "materials": [
+      {
+        "id": 3570057,
+        "name": "青年主播",
+        "voice": "zhubo",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5211911,
+        "name": "舌尖美食",
+        "voice": "meishi",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5211910,
+        "name": "译制腔",
+        "voice": "yizhi",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3062226,
+        "name": "娱乐扒妹",
+        "voice": "bamei",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3900252,
+        "name": "解说男声",
+        "voice": "jieshuonannew",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5925315,
+        "name": "亲切播报",
+        "voice": "Sentimental_Lady",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5925317,
+        "name": "沉稳叙事",
+        "voice": "Tough_Boss",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866617,
+        "name": "新闻主播",
+        "voice": "audiobook_female_2",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866610,
+        "name": "生动解说",
+        "voice": "male-qn-jingying",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866615,
+        "name": "稳重熟男",
+        "voice": "Romantic_Husband",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866609,
+        "name": "财经主播",
+        "voice": "presenter_male",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866622,
+        "name": "电台主播",
+        "voice": "Stressed_Lady",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866616,
+        "name": "说书老爷",
+        "voice": "badao_shaoye",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866618,
+        "name": "知识讲解",
+        "voice": "Confident_Woman",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3870256,
+        "name": "解说女声",
+        "voice": "jieshuonv",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5739658,
+        "name": "治愈男声",
+        "voice": "huayuanbaobao",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3330025,
+        "name": "娱乐扒哥",
+        "voice": "bage",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 967648,
+        "name": "低音炮",
+        "voice": "diyinpao",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      }
+    ]
+  },
+  {
+    "id": 1740260,
+    "title": "童声",
+    "cover": "",
+    "rank": 4,
+    "materials": [
+      {
+        "id": 3900138,
+        "name": "萌小孩",
+        "voice": "xiaoxin",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 2817859,
+        "name": "小鬼头",
+        "voice": "daimeng",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 2847110,
+        "name": "超萌奶娃",
+        "voice": "nvhai",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3540048,
+        "name": "元气正太",
+        "voice": "zhengtai",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      }
+    ]
+  },
+  {
+    "id": 1740261,
+    "title": "女声",
+    "cover": "",
+    "rank": 5,
+    "materials": [
+      {
+        "id": 5741515,
+        "name": "玉玲",
+        "voice": "liyuling",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 2713583,
+        "name": "清仓促销员",
+        "voice": "xiaoxiao",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5741520,
+        "name": "TVB女声",
+        "voice": "tvbfemale",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 2549770,
+        "name": "知性女生",
+        "voice": "db6",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 967645,
+        "name": "温柔女孩",
+        "voice": "wenrounvsheng",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5925318,
+        "name": "知性姐姐",
+        "voice": "vc_mock_clone_xiaoa_vocals_01_1213_1530",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5925319,
+        "name": "舒缓解说",
+        "voice": "Spanish_SophisticatedLady",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 937651,
+        "name": "元气少女",
+        "voice": "xindong",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866623,
+        "name": "休闲学姐",
+        "voice": "Podcast_girl_platform",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866624,
+        "name": "糖系女声",
+        "voice": "tianmei",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036546,
+        "name": "舒缓解说",
+        "voice": "Spanish_SophisticatedLady",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036548,
+        "name": "元气妹妹",
+        "voice": "ai_dj_f_01",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036549,
+        "name": "快嘴御姐",
+        "voice": "shuwen_speech02_02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5925316,
+        "name": "爽快学姐",
+        "voice": "vc_mock_clone_bumianjie_vocals_01_1213_1527",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036550,
+        "name": "典雅解说",
+        "voice": "linglong-mf-46",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036551,
+        "name": "职场精英",
+        "voice": "xumin0825_speech02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036552,
+        "name": "国泰民安嗓",
+        "voice": "yuanyuan_0927_speech02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036547,
+        "name": "清甜少女",
+        "voice": "dj_f_0921_speech02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036558,
+        "name": "菀菀类卿",
+        "voice": "zhenhuan_0812",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      }
+    ]
+  },
+  {
+    "id": 1740262,
+    "title": "男声",
+    "cover": "",
+    "rank": 6,
+    "materials": [
+      {
+        "id": 5741518,
+        "name": "鸡血广告",
+        "voice": "jixueguanggao",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 2567149,
+        "name": "热血男孩",
+        "voice": "xiaoyao",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3330024,
+        "name": "轻松少年",
+        "voice": "qingsong",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 937652,
+        "name": "森系少年",
+        "voice": "db8",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866611,
+        "name": "磁性男声",
+        "voice": "audiobook_male_1",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866619,
+        "name": "理科男声",
+        "voice": "Male_botong_platform",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866620,
+        "name": "幽默小哥",
+        "voice": "wenrou_tongzhuo",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866625,
+        "name": "清亮男声",
+        "voice": "dj_m_chat_0306_05",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866612,
+        "name": "亲切男声",
+        "voice": "Xiaoyi_mix_platform",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036542,
+        "name": "清朗青年",
+        "voice": "shuaibing0825_speech02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036543,
+        "name": "标准旁白",
+        "voice": "ai_dj_m_02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036544,
+        "name": "播音主持",
+        "voice": "qiyu_speech02_0606",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036541,
+        "name": "知性暖男",
+        "voice": "dj_m_chat_01_speech02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866613,
+        "name": "知性小哥",
+        "voice": "Boyan_new_platform",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866628,
+        "name": "憨厚男声",
+        "voice": "Humorous_Elder",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5866614,
+        "name": "深情男主",
+        "voice": "wenrou_yisheng",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036553,
+        "name": "麦克阿瑟",
+        "voice": "maikease",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036554,
+        "name": "磁性男音",
+        "voice": "doc_commentary",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036555,
+        "name": "憨厚少年",
+        "voice": "xionger_speech02",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036556,
+        "name": "儒雅圣僧",
+        "voice": "tangseng",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 6036557,
+        "name": "慵倦帝王",
+        "voice": "silang_0812",
+        "voice_engine": "minimax",
+        "tts_tags": "",
+        "ssml_effect": ""
+      }
+    ]
+  },
+  {
+    "id": 1740263,
+    "title": "语言",
+    "cover": "",
+    "rank": 7,
+    "materials": [
+      {
+        "id": 3540044,
+        "name": "四川话",
+        "voice": "zh-CN-sichuan-YunxiNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3570055,
+        "name": "山东话",
+        "voice": "zh-CN-shandong-YunxiangNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3540046,
+        "name": "粤语男声",
+        "voice": "zh-HK-WanLungNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3540045,
+        "name": "台湾话",
+        "voice": "zh-TW-HsiaoChenNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3540047,
+        "name": "粤语女声",
+        "voice": "zh-HK-HiuMaanNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 1410349,
+        "name": "说书先生",
+        "voice": "xiaopo",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3900013,
+        "name": "上海话",
+        "voice": "wuu-CN-XiaotongNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3540042,
+        "name": "东北话",
+        "voice": "zh-CN-liaoning-XiaobeiNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 5741519,
+        "name": "英文男声",
+        "voice": "v50",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 911633,
+        "name": "天津话",
+        "voice": "tianjinhua",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3570056,
+        "name": "陕西话",
+        "voice": "zh-CN-shaanxi-XiaoniNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 3540043,
+        "name": "河南话",
+        "voice": "zh-CN-henan-YundengNeural",
+        "voice_engine": "microsoft",
+        "tts_tags": "",
+        "ssml_effect": ""
+      },
+      {
+        "id": 937654,
+        "name": "中英双语",
+        "voice": "xindong",
+        "voice_engine": "bili-fewshot",
+        "tts_tags": "",
+        "ssml_effect": ""
+      }
+    ]
+  }
+]
